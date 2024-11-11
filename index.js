@@ -3,28 +3,34 @@ const app = express();
 
 const sequelize = require('./config/db');
 const Usuario = require('./models/Usuario');
+const Ponto = require('./models/Ponto');
 
 
-sequelize.authenticate()
-.then(() => {
-    console.log("conectei no banco");
-})
-.catch(error => {
-    console.log(`nao conectou ${error}`);
-});
+sequelize.sync({ alter: true })
+    .then(() => {
+        console.log("SUCESSO!");
+    })
+    .catch(error => {
+        console.log(`Erro ao sincronizar as tabelas - ${error}`);
+    });
+
+
+Ponto.create({ tipo: 'I', dataHora: 'sfsdfsdfgsdfgsdfgdsfgss' });
+
+
 
 // app.METODO('rota/caminho', (req, res) => {})
 
 app.get('/users', (req, res) => {
-    res.send("nessa rota vou cagar nos usuarios. -passaro");
+    res.send("Nessa rota vou retornar os usuários");
 });
 
 app.post('/users', (req, res) => {
-    res.send("cagando nos outros via post. -passaro");
+    res.send("Rota users usando post");
 });
 
 app.get('/user/:id', (req, res) => {
-    res.send(`o passaro cagou em ${req.params.id}`);
+    res.send(`o parâmetro é ${req.params.id}`)
 });
 
 app.post('/user/:id1-:id2', (req, res) => {
@@ -34,5 +40,5 @@ app.post('/user/:id1-:id2', (req, res) => {
 const PORT = 3000;
 
 app.listen(PORT, () => {
-    console.log(`o passaro cagou na porta ${PORT}`);
+    console.log(`Servidor web ouvindo na porta ${PORT}`);
 });
