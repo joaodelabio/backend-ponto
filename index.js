@@ -3,6 +3,14 @@ const app = express();
 
 const sequelize = require('./config/db');
 
+sequelize.authenticate()
+.then(() => {
+    console.log("conectei no banco");
+})
+.catch(error => {
+    console.log(`nao conectou ${error}`);
+});
+
 // app.METODO('rota/caminho', (req, res) => {})
 
 app.get('/users', (req, res) => {
