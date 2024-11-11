@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+const sequelize = require('./config/db');
+
 // app.METODO('rota/caminho', (req, res) => {})
 
 app.get('/users', (req, res) => {
